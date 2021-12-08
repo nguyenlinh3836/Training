@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ProductDto;
 import com.example.demo.model.BaseResponse;
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
@@ -18,19 +19,20 @@ public class ProductApiController {
         res.data = productService.listAllProduct();
         return res;
     }
-    @PutMapping
+    @PostMapping
     public BaseResponse insertProduct(@RequestBody Product product){
         BaseResponse res = new BaseResponse();
         res.data = productService.insertProduct(product);
         return res;
     }
 
-    @PostMapping
-    public BaseResponse updateProduct(@RequestBody Product product){
+    @PutMapping(value = "{id}")
+    public BaseResponse updateProduct(@RequestBody ProductDto productDto, @PathVariable int id){
         BaseResponse res = new BaseResponse();
-        product = productService.getProductById(product.getProduct_id());
-        productService.updateProduct(product);
-        res.data = product;
+        Product product = new Product();
+        product.setProduct_id(id);
+        product.setProduct_name(productDto.getProduct_name());
+        res.data = productService.updateProduct(product);
         return res;
     }
     @DeleteMapping( value = "{id}")
