@@ -41,8 +41,8 @@ public class ProductApiController {
     @DeleteMapping( value = "{id}")
     public BaseResponse deleteProduct(@PathVariable int id){
         BaseResponse res = new BaseResponse();
-            productService.delete(id);
-            res.data = "Product has been deleted";
-            return res;
+        productService.delete(id);
+        res.data = "Product has been deleted";
+        return res;
     }
 }
