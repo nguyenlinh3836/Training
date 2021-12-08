@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.model;
 
 public class BaseResponse<T> {
     public int status = 1;
