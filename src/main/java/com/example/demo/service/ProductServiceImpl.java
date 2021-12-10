@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.MapperDto;
+import com.example.demo.dto.ProductDto;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,13 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
-    ProductRepo productRepo;
+    private ProductRepo productRepo;
+    @Autowired
+    private MapperDto mapperDto;
+
     @Override
-    public List<Product> listAllProduct() {
-        return productRepo.findAll();
+    public List<ProductDto> listAllProduct() {
+        return mapperDto.convertToListDto(productRepo.findAll());
     }
 
     @Override
@@ -22,12 +27,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product insertProduct(Product product) {
+    public Product insertProduct(ProductDto productDto) {
+        Product product = mapperDto.convertToEntity(productDto);
         return productRepo.save(product);
     }
 
     @Override
-    public Product updateProduct(Product product) {
+    public Product updateProduct(ProductDto productDto, int id) {
+        Product product = mapperDto.convertToEntity(productDto);
+        product.setProductId(id);
         return productRepo.save(product);
     }
 

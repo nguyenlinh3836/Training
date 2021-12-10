@@ -1,45 +1,45 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MapperDto;
 import com.example.demo.dto.ProductDto;
-import com.example.demo.model.BaseResponse;
-import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("api/v1/product")
 public class ProductApiController {
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @GetMapping
-    public BaseResponse listProduct(){
-        BaseResponse res = new BaseResponse();
-        res.data = productService.listAllProduct();
-        return res;
-    }
-    @PostMapping
-    public BaseResponse insertProduct(@RequestBody Product product){
-        BaseResponse res = new BaseResponse();
-        res.data = productService.insertProduct(product);
-        return res;
+    public ResponseEntity listProduct() {
+        return ResponseEntity.ok(productService.listAllProduct());
     }
 
-    @PutMapping(value = "{id}")
-    public BaseResponse updateProduct(@RequestBody ProductDto productDto, @PathVariable int id){
-        BaseResponse res = new BaseResponse();
-        Product product = new Product();
-        product.setProduct_id(id);
-        product.setProduct_name(productDto.getProduct_name());
-        res.data = productService.updateProduct(product);
-        return res;
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getProductById(@PathVariable int id) {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
-    @DeleteMapping( value = "{id}")
-    public BaseResponse deleteProduct(@PathVariable int id){
-        BaseResponse res = new BaseResponse();
+
+    @PostMapping
+    public ResponseEntity insertProduct(@RequestBody ProductDto productDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.insertProduct(productDto));
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity updateProduct(@RequestBody ProductDto productDto, @PathVariable int id) {
+        return ResponseEntity.ok(productService.updateProduct(productDto, id));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteProduct(@PathVariable int id) {
         productService.delete(id);
-        res.data = "Product has been deleted";
-        return res;
+        return ResponseEntity.ok("Product has been delete");
     }
 }
