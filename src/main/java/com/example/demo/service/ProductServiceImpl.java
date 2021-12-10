@@ -26,7 +26,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getProductById(int id) {
         return productMapper.toDto(productRepo.getById(id));
-
     }
 
     @Override
