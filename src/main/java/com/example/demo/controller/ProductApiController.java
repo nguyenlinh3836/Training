@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MapperDto;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class ProductApiController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity getProductById(@PathVariable int id) {
-        return ResponseEntity.ok(productService.getProductById(id));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.getProductById(id));
     }
 
     @PostMapping
@@ -34,12 +33,12 @@ public class ProductApiController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity updateProduct(@RequestBody ProductDto productDto, @PathVariable int id) {
-        return ResponseEntity.ok(productService.updateProduct(productDto, id));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.updateProduct(productDto, id));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteProduct(@PathVariable int id) {
         productService.delete(id);
-        return ResponseEntity.ok("Product has been delete");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Product has been delete");
     }
 }

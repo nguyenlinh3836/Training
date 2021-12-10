@@ -10,6 +10,8 @@ public class Product {
     private int productId;
     @Column(name = "productname")
     private String productName;
+    @Column(name = "price")
+    private double price;
 
     public Product() {
     }
@@ -33,5 +35,13 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

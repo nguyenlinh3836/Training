@@ -10,6 +10,7 @@ public class ProductDto {
     @Id
     private int productId;
     private String productName;
+    private double price;
 
     public ProductDto() {
     }
@@ -28,5 +29,13 @@ public class ProductDto {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
