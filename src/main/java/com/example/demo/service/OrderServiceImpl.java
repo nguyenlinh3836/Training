@@ -20,6 +20,12 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepo orderRepo;
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private OrderDetailRepo orderDetailRepo;
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private ProductRepo productRepo;
 
     @Override
     public List<OrderDto> listAllOrder() {
@@ -49,5 +55,31 @@ public class OrderServiceImpl implements OrderService {
         Date date = new Date(new java.util.Date().getTime());
         order.setOrderDate(date);
         return orderMapper.toDto(orderRepo.save(order));
+    }
+
+    @Override
+    public List<OrderDetailDto> listOrderDetail() {
+        return orderDetailMapper.toDtoList(orderDetailRepo.findAll());
+    }
+
+    @Override
+    public OrderDetailDto getOrderDetailById(int id) {
+        return orderDetailMapper.toDto(orderDetailRepo.getById(id));
+    }
+
+    @Override
+    public OrderDetailDto createOrderDetail(OrderDto orderDto, int productId) {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setOrder(orderMapper.toEntity(orderDto));
+        orderDetail.setProduct((productRepo.getById(productId)));
+        orderDetail.setTotal(productRepo.getById(productId).getPrice());
+        return orderDetailMapper.toDto(orderDetailRepo.save(orderDetail));
+    }
+
+    @Override
+    public OrderDetailDto updateOrderDetail(OrderDetailDto orderDetailDto, int id) {
+        OrderDetail orderDetail = orderDetailMapper.toEntity(orderDetailDto);
+        orderDetail.setId(id);
+        return orderDetailMapper.toDto(orderDetailRepo.save(orderDetail));
     }
 }
