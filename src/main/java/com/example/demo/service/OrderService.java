@@ -10,10 +10,9 @@ public interface OrderService {
     List<OrderDto> listAllOrder();
     List<Order> getAllOrder();
     OrderDto getOrderById(int id);
-    OrderDto createOrder(OrderDto orderDto);
+    void createOrder(OrderDto orderDto,int productId);
     OrderDto updateOrder(OrderDto orderDto,int id);
     List<OrderDetailDto> listOrderDetail();
     OrderDetailDto getOrderDetailById(int id);
-    OrderDetailDto createOrderDetail(OrderDto orderDto,int productId);
     OrderDetailDto updateOrderDetail(OrderDetailDto orderDetailDto,int id);
 }

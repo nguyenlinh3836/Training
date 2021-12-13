@@ -43,9 +43,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto createOrder(OrderDto orderDto) {
+    public void createOrder(OrderDto orderDto,int productId) {
         Order order = orderMapper.toEntity(orderDto);
-        return orderMapper.toDto(orderRepo.save(order));
+        orderMapper.toDto(orderRepo.save(order));
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setOrder(order);
+        orderDetail.setProduct((productRepo.getById(productId)));
+        orderDetail.setTotal(productRepo.getById(productId).getPrice());
+        orderDetailMapper.toDto(orderDetailRepo.save(orderDetail));
     }
 
     @Override
@@ -65,15 +70,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDetailDto getOrderDetailById(int id) {
         return orderDetailMapper.toDto(orderDetailRepo.getById(id));
-    }
-
-    @Override
-    public OrderDetailDto createOrderDetail(OrderDto orderDto, int productId) {
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setOrder(orderMapper.toEntity(orderDto));
-        orderDetail.setProduct((productRepo.getById(productId)));
-        orderDetail.setTotal(productRepo.getById(productId).getPrice());
-        return orderDetailMapper.toDto(orderDetailRepo.save(orderDetail));
     }
 
     @Override
