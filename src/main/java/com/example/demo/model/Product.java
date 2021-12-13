@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class Product {
     @Column(name = "price")
     private double price;
     @OneToMany(mappedBy = "product",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
-    List<OrderDetail> orderDetails;
+    Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Product() {
     }
@@ -44,11 +45,11 @@ public class Product {
         this.price = price;
     }
 
-    public List<OrderDetail> getOrderDetails() {
+    public Set<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

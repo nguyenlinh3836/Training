@@ -3,12 +3,14 @@ package com.example.demo.service;
 import com.example.demo.dto.*;
 import com.example.demo.model.Order;
 import com.example.demo.model.OrderDetail;
+import com.example.demo.model.Product;
 import com.example.demo.repository.OrderDetailRepo;
 import com.example.demo.repository.OrderRepo;
 import com.example.demo.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,9 +36,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
 
     @Override
-    public OrderDetailDto createOrderDetail(OrderDto orderDto,int productId) {
+    public OrderDetailDto createOrderDetail(OrderDto orderDto, List<ProductDto> productDtos) {
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrder(orderMapper.toEntity(orderDto));
+        List<ProductDto> products = new ArrayList<>();
+        for (products : product){
+
+        }
         orderDetail.setProduct((productRepo.getById(productId)));
         return orderDetailMapper.toDto(orderDetailRepo.save(orderDetail));
     }

@@ -1,11 +1,10 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "OrderInfo")
@@ -23,8 +22,9 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "orderDate")
     private Date orderDate;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    List<OrderDetail> orderDetails = new ArrayList<>();
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, fetch = FetchType.LAZY,orphanRemoval = true)
+    Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Order() {
     }
@@ -69,11 +69,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public List<OrderDetail> getOrderDetails() {
+    public Set<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

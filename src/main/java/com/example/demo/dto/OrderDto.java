@@ -18,7 +18,6 @@ public class OrderDto {
     private String customerPhone;
     private String address;
     private Date orderDate;
-    private List<OrderDetailDto> orderDetailDtos;
 
     public int getId() {
         return id;
@@ -58,13 +57,5 @@ public class OrderDto {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public List<OrderDetailDto> getOrderDetailDtos() {
-        return orderDetailDtos;
-    }
-
-    public void setOrderDetailDtos(List<OrderDetailDto> orderDetailDtos) {
-        this.orderDetailDtos = orderDetailDtos;
     }
 }

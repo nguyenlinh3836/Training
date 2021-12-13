@@ -24,17 +24,11 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity listOrder() {
-        return ResponseEntity.ok(orderService.listAllOrder());
-//          return ResponseEntity.ok(orderService.getAllOrder());
-    }
-    @GetMapping(value = "/orderDetail")
-    public ResponseEntity orderDetailList(){
         return ResponseEntity.ok(orderDetailService.listOrderDetail());
     }
-
     @GetMapping(value = "/{id}")
-    public ResponseEntity getOrderById(@PathVariable int id) {
-        return ResponseEntity.ok(orderService.getOrderById(id));
+    public ResponseEntity orderDetailList(@PathVariable int id){
+       return ResponseEntity.ok(orderDetailService.getOrderDetailById(id));
     }
 
     @PostMapping(value = "/{productId}")
