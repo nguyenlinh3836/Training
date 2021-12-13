@@ -9,6 +9,8 @@ import com.example.demo.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,8 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto updateOrder(OrderDto orderDto, int id) {
         Order order = orderMapper.toEntity(orderDto);
         order.setId(id);
+        Date date = new Date(new java.util.Date().getTime());
+        order.setOrderDate(date);
         return orderMapper.toDto(orderRepo.save(order));
     }
 }
