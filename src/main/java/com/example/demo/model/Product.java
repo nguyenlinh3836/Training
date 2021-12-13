@@ -1,32 +1,31 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
+    private int id;
     @Column(name = "productname")
     private String productName;
     @Column(name = "price")
     private double price;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    List<OrderDetail> orderDetails;
 
     public Product() {
     }
 
-    public Product(int productId, String productName) {
-        this.productId = productId;
-        this.productName = productName;
+    public int getId() {
+        return id;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProductName() {
@@ -43,5 +42,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

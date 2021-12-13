@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.persistence.Id;
 
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+
 public class ProductDto {
     @Id
-    private int productId;
+    private int id;
     private String productName;
     private double price;
 
     public ProductDto() {
     }
 
-    public int getProductId() {
-        return productId;
+    public int getId() {
+        return id;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProductName() {
