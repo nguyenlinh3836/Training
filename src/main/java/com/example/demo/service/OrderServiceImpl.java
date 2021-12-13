@@ -17,15 +17,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepo orderRepo;
     @Autowired
-    private ProductRepo productRepo;
-    @Autowired
-    private OrderDetailRepo orderDetailRepo;
-    @Autowired
     private OrderMapper orderMapper;
-    @Autowired
-    private ProductMapper productMapper;
-    @Autowired
-    private OrderDetailMapper orderDetailMapper;
 
     @Override
     public List<OrderDto> listAllOrder() {
