@@ -21,22 +21,26 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
+    @Transactional
     public List<ProductDto> listAllProduct() {
         return productMapper.toDtoList(productRepo.findAll());
     }
 
     @Override
+    @Transactional
     public ProductDto getProductById(int id) {
         return productMapper.toDto(productRepo.getById(id));
     }
 
     @Override
+    @Transactional
     public ProductDto insertProduct(ProductDto productDto) {
         Product product = productMapper.toEntity(productDto);
         return productMapper.toDto(productRepo.save(product));
     }
 
     @Override
+    @Transactional
     public ProductDto updateProduct(ProductDto productDto, int id) {
         Product product = productMapper.toEntity(productDto);
         product.setId(id);
@@ -44,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         Product product = productRepo.getById(id);
         productRepo.delete(product);

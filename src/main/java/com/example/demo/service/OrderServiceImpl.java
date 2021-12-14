@@ -14,7 +14,6 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-@Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepo orderRepo;
@@ -28,23 +27,24 @@ public class OrderServiceImpl implements OrderService {
     private ProductRepo productRepo;
 
     @Override
-
+    @Transactional
     public List<OrderDto> listAllOrder() {
         return orderMapper.toDtoList(orderRepo.findAll());
     }
-
     @Override
-
+    @Transactional
     public List<Order> getAllOrder() {
         return orderRepo.findAll();
     }
 
     @Override
+    @Transactional
     public OrderDto getOrderById(int id) {
         return orderMapper.toDto(orderRepo.getById(id));
     }
 
     @Override
+    @Transactional
     public void createOrder(OrderDto orderDto, int productId) {
         Order order = orderMapper.toEntity(orderDto);
         orderMapper.toDto(orderRepo.save(order));
@@ -56,6 +56,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderDto updateOrder(OrderDto orderDto, int id) {
         Order order = orderMapper.toEntity(orderDto);
         order.setId(id);
@@ -65,16 +66,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public List<OrderDetailDto> listOrderDetail() {
         return orderDetailMapper.toDtoList(orderDetailRepo.findAll());
     }
 
     @Override
+    @Transactional
     public OrderDetailDto getOrderDetailById(int id) {
         return orderDetailMapper.toDto(orderDetailRepo.getById(id));
     }
 
     @Override
+    @Transactional
     public OrderDetailDto updateOrderDetail(OrderDetailDto orderDetailDto, int id) {
         OrderDetail orderDetail = orderDetailMapper.toEntity(orderDetailDto);
         orderDetail.setId(id);
