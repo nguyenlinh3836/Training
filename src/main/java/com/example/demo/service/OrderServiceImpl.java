@@ -8,13 +8,13 @@ import com.example.demo.repository.OrderRepo;
 import com.example.demo.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepo orderRepo;
@@ -28,11 +28,13 @@ public class OrderServiceImpl implements OrderService {
     private ProductRepo productRepo;
 
     @Override
+
     public List<OrderDto> listAllOrder() {
         return orderMapper.toDtoList(orderRepo.findAll());
     }
 
     @Override
+
     public List<Order> getAllOrder() {
         return orderRepo.findAll();
     }
@@ -43,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(OrderDto orderDto,int productId) {
+    public void createOrder(OrderDto orderDto, int productId) {
         Order order = orderMapper.toEntity(orderDto);
         orderMapper.toDto(orderRepo.save(order));
         OrderDetail orderDetail = new OrderDetail();
