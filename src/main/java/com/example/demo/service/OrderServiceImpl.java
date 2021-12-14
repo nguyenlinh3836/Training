@@ -31,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> listAllOrder() {
         return orderMapper.toDtoList(orderRepo.findAll());
     }
+
     @Override
     @Transactional
     public List<Order> getAllOrder() {
