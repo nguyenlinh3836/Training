@@ -18,6 +18,8 @@ public class Order {
     private String address;
     @Column(name = "customerPhone")
     private String customerPhone;
+    @Column(name = "quantity")
+    private int quantity;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "orderDate")
@@ -75,5 +77,13 @@ public class Order {
 
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

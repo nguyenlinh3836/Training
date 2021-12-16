@@ -17,6 +17,9 @@ public class Product {
     private double price;
     @OneToMany(mappedBy = "product",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     Set<OrderDetail> orderDetails = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "supplierId")
+    private Supplier supplier;
 
     public Product() {
     }
@@ -51,5 +54,13 @@ public class Product {
 
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }

@@ -18,6 +18,7 @@ public class OrderDto {
     private String customerPhone;
     private String address;
     private Date orderDate;
+    private int quantity;
 
     public int getId() {
         return id;
@@ -57,5 +58,13 @@ public class OrderDto {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

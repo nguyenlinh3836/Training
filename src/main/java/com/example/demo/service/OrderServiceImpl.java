@@ -3,15 +3,18 @@ package com.example.demo.service;
 import com.example.demo.dto.*;
 import com.example.demo.model.Order;
 import com.example.demo.model.OrderDetail;
+import com.example.demo.model.Product;
+import com.example.demo.model.Stock;
 import com.example.demo.repository.OrderDetailRepo;
 import com.example.demo.repository.OrderRepo;
 import com.example.demo.repository.ProductRepo;
+import com.example.demo.repository.StockRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -25,6 +28,10 @@ public class OrderServiceImpl implements OrderService {
     private OrderDetailMapper orderDetailMapper;
     @Autowired
     private ProductRepo productRepo;
+    @Autowired
+    private StockMapper stockMapper;
+    @Autowired
+    private StockRepo stockRepo;
 
     @Override
     @Transactional
@@ -46,14 +53,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void createOrder(OrderDto orderDto, int productId) {
+    public OrderDto createOrder(OrderDto orderDto, int productId) {
         Order order = orderMapper.toEntity(orderDto);
-        orderMapper.toDto(orderRepo.save(order));
+        OrderDto orderDtoSave = orderMapper.toDto(orderRepo.save(order));
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrder(order);
         orderDetail.setProduct((productRepo.getById(productId)));
         orderDetail.setTotal(productRepo.getById(productId).getPrice());
         orderDetailMapper.toDto(orderDetailRepo.save(orderDetail));
+        Stock stock = stockRepo.getByProduct(productRepo.getById(productId));
+        stock.setQuantity(stock.getQuantity() - order.getQuantity());
+        stockRepo.save(stock);
+        return orderDtoSave;
     }
 
     @Override
@@ -61,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto updateOrder(OrderDto orderDto, int id) {
         Order order = orderMapper.toEntity(orderDto);
         order.setId(id);
-        Date date = new Date(new java.util.Date().getTime());
+        Date date = new Date();
         order.setOrderDate(date);
         return orderMapper.toDto(orderRepo.save(order));
     }

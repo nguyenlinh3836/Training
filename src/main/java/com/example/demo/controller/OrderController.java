@@ -12,18 +12,20 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
     @GetMapping
     public ResponseEntity listOrder() {
         return ResponseEntity.ok(orderService.listOrderDetail());
     }
+
     @GetMapping(value = "/{id}")
-    public ResponseEntity orderDetailList(@PathVariable int id){
-       return ResponseEntity.ok(orderService.getOrderDetailById(id));
+    public ResponseEntity orderDetailList(@PathVariable int id) {
+        return ResponseEntity.ok(orderService.getOrderDetailById(id));
     }
 
     @PostMapping(value = "/{productId}")
     public ResponseEntity createOrder(@RequestBody OrderDto orderDto, @PathVariable int productId) {
-        orderService.createOrder(orderDto,productId);
+        orderService.createOrder(orderDto, productId);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Your order has been created !");
     }
 

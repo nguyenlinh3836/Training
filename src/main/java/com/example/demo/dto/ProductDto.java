@@ -11,6 +11,7 @@ public class ProductDto {
     private int id;
     private String productName;
     private double price;
+    private StockDto stockDto;
 
     public ProductDto() {
     }
@@ -37,5 +38,13 @@ public class ProductDto {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public StockDto getStockDto() {
+        return stockDto;
+    }
+
+    public void setStockDto(StockDto stockDto) {
+        this.stockDto = stockDto;
     }
 }
