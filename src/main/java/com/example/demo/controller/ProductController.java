@@ -57,4 +57,9 @@ public class ProductController {
     public ResponseEntity addStock(@RequestBody StockDto stockDto, @PathVariable int productId) {
         return ResponseEntity.ok(stockService.createStock(stockDto, productId));
     }
+    
+    @PutMapping(value ="/stock/{id}" )
+    public ResponseEntity updateStock(@RequestBody StockDto stockDto, @PathVariable int id) {
+        return ResponseEntity.ok(stockService.updateStock(stockDto,id));
+    }
 }

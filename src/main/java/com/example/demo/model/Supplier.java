@@ -1,10 +1,7 @@
 package com.example.demo.model;
 
-import com.example.demo.dto.ProductDto;
-
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "supplier")
@@ -15,6 +12,7 @@ public class Supplier {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "supplier")
+    private List<Product> product;
 
     public int getId() {
         return id;

@@ -11,7 +11,7 @@ public class ProductDto {
     private int id;
     private String productName;
     private double price;
-    private StockDto stockDto;
+//    private StockDto stockDto;
 
     public ProductDto() {
     }
@@ -40,11 +40,11 @@ public class ProductDto {
         this.price = price;
     }
 
-    public StockDto getStockDto() {
-        return stockDto;
-    }
-
-    public void setStockDto(StockDto stockDto) {
-        this.stockDto = stockDto;
-    }
+//    public StockDto getStockDto() {
+//        return stockDto;
+//    }
+//
+//    public void setStockDto(StockDto stockDto) {
+//        this.stockDto = stockDto;
+//    }
 }

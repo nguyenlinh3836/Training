@@ -9,7 +9,6 @@ public class StockDto {
     @Id
     private int id;
     private int quantity;
-    private ProductDto productDto;
 
     public int getId() {
         return id;
@@ -27,11 +26,4 @@ public class StockDto {
         this.quantity = quantity;
     }
 
-    public ProductDto getProductDto() {
-        return productDto;
-    }
-
-    public void setProductDto(ProductDto productDto) {
-        this.productDto = productDto;
-    }
 }
