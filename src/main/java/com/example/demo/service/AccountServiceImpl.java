@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String passEncode = encoder.encode(account.getPassword());
         account.setPassword(passEncode);
-        account.setRoles(Arrays.asList(roleRepo.getById(1)));
+        account.setRoles(Arrays.asList(roleRepo.findByRolename("USER")));
         return accountMapper.toDto(accountRepo.save(account));
     }
 }

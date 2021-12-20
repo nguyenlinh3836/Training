@@ -38,9 +38,9 @@ public class AccountController {
         AccountDto currentUser = accountService.findByUserName(accountDto.getUsername());
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(),jwt,userDetails.getUsername(),userDetails.getAuthorities()));
     }
-    @GetMapping("/register")
-    public ResponseEntity register(@RequestParam String username){
-        return ResponseEntity.ok(userDetailService.loadUserByUsername(username));
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody AccountDto accountDto){
+        return ResponseEntity.ok(accountService.createAccount(accountDto));
     }
 
 }
