@@ -39,8 +39,12 @@ public class ProductController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity updateProduct(@RequestBody ProductDto productDto, @PathVariable int id) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.updateProduct(productDto, id));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.updateProduct(productDto,id));
     }
+//    @PutMapping(value = "/updateSupplier")
+//    public ResponseEntity updateProduct(@RequestParam int productId, @RequestParam int supplierId) {
+//        return ResponseEntity.status(HttpStatus.ACCEPTED).body();
+//    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteProduct(@PathVariable int id) {
@@ -57,9 +61,9 @@ public class ProductController {
     public ResponseEntity addStock(@RequestBody StockDto stockDto, @PathVariable int productId) {
         return ResponseEntity.ok(stockService.createStock(stockDto, productId));
     }
-    
-    @PutMapping(value ="/stock/{id}" )
+
+    @PutMapping(value = "/stock/{id}")
     public ResponseEntity updateStock(@RequestBody StockDto stockDto, @PathVariable int id) {
-        return ResponseEntity.ok(stockService.updateStock(stockDto,id));
+        return ResponseEntity.ok(stockService.updateStock(stockDto, id));
     }
 }
