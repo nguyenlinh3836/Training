@@ -1,13 +1,8 @@
 package com.example.demo.dto;
 
 
-import com.example.demo.model.OrderDetail;
-import com.example.demo.model.Product;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.Id;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +14,7 @@ public class OrderDto {
     private String address;
     private Date orderDate;
     private int quantity;
+    private String status;
 
     public int getId() {
         return id;
@@ -66,5 +62,13 @@ public class OrderDto {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

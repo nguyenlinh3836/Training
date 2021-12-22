@@ -1,14 +1,12 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Product;
-import com.example.demo.model.Stock;
-
-import javax.persistence.*;
+import javax.persistence.Id;
 
 public class StockDto {
     @Id
     private int id;
     private int quantity;
+    private int productId;
 
     public int getId() {
         return id;
@@ -26,4 +24,11 @@ public class StockDto {
         this.quantity = quantity;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 }

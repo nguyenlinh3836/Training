@@ -20,16 +20,17 @@ public class Order {
     private String customerPhone;
     @Column(name = "quantity")
     private int quantity;
+    @Column(name = "status")
+    private String status;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "orderDate")
     private Date orderDate;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, fetch = FetchType.LAZY,orphanRemoval = true)
-    Set<OrderDetail> orderDetails = new HashSet<>();
 
-    public Order() {
-    }
+    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, fetch = FetchType.LAZY,orphanRemoval = true)
+    List<OrderDetail> orderDetails;
+
 
     public int getId() {
         return id;
@@ -71,19 +72,27 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

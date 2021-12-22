@@ -16,7 +16,7 @@ public class Product {
     @Column(name = "price")
     private double price;
     @OneToMany(mappedBy = "product",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
-    Set<OrderDetail> orderDetails = new HashSet<>();
+    List<OrderDetail> orderDetails;
     @ManyToOne
     @JoinColumn(name = "supplierId")
     private Supplier supplier;
@@ -48,13 +48,6 @@ public class Product {
         this.price = price;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
 
     public Supplier getSupplier() {
         return supplier;
@@ -62,5 +55,13 @@ public class Product {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }
