@@ -1,0 +1,10 @@
+jwt:
+  verifyKey: -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1pC3enG6rIPJET8hnVaj
+    sT/l11AL17JvJu6U86pjssn5uWoo1U9kS0cIkgGadIXiG7/Ugac3G+lifc1o62GP
+    0geTpSZZRgx2D6KykUiV+B9rYKIvmvvrNZ+EabGjSdhSbneianrhP4uuIGzHNcGI
+    l8gjlWdFyuQR0DqKyReE9Ztw21ydg7zgYo4Go2mClW99D+BHT3crqXEVk1jXGcrr
+    IcgqGBjkMmfwoc/zMlNLh23x456AJq5Qo1SHlyzL+BYgGfs6aOcud87kQA7POOFe
+    5J5xdWQJnoLEG/INuvn0xhzNw+fhEZf5J3kQB7NXBErohaTK3eUKYaHgSKhMUtEY
+    VQIDAQAB
+    -----END PUBLIC KEY-----

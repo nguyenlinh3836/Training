@@ -2,7 +2,6 @@ package com.example.demo.client;
 
 import com.example.demo.dto.StockDto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.List;
 public interface StockFeignClient {
     @GetMapping
     List<StockDto> stocks();
-    @PostMapping(value = "{productId}")
+    @PostMapping(value = "/{productId}")
     StockDto addStock(StockDto stockDto, @PathVariable int productId);
-    @PutMapping(value = "{id}")
+    @PutMapping(value = "/{id}")
     StockDto updateStock(@PathVariable int id, @RequestBody StockDto stockDto);
     @GetMapping(value = "/{id}")
     StockDto getByProductId(@PathVariable int id);

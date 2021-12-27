@@ -17,9 +17,9 @@ public class Product {
     private double price;
     @OneToMany(mappedBy = "product",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     List<OrderDetail> orderDetails;
-    @ManyToOne
-    @JoinColumn(name = "supplierId")
-    private Supplier supplier;
+//    @ManyToOne
+//    @JoinColumn(name = "supplierId")
+//    private Supplier supplier;
 
     public Product() {
     }
@@ -49,13 +49,13 @@ public class Product {
     }
 
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
+//    public Supplier getSupplier() {
+//        return supplier;
+//    }
+//
+//    public void setSupplier(Supplier supplier) {
+//        this.supplier = supplier;
+//    }
 
     public List<OrderDetail> getOrderDetails() {
         return orderDetails;

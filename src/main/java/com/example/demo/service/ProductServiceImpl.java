@@ -5,6 +5,8 @@ import com.example.demo.dto.ProductMapper;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +23,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<ProductDto> listAllProduct() {
-        return productMapper.toDtoList(productRepo.findAll());
+    public List<ProductDto> listAllProduct(int offset, int pageSize) {
+        Page<Product> products = productRepo.findAll(PageRequest.of(offset,pageSize));
+        List<ProductDto> dtos = productMapper.toDtoList(products.getContent());
+        return dtos;
     }
 
     @Override
