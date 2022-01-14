@@ -2,11 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.client.StockFeignClient;
 import com.example.demo.dto.*;
+import com.example.demo.model.Order;
 import com.example.demo.model.OrderDetail;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,6 +25,9 @@ public class OrderController {
     private StockFeignClient stockFeignClient;
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+
+    @Autowired
+    private KafkaTemplate<String, List<StockDto>> kafkaTemplate;
 
     @GetMapping
     public ResponseEntity listOrder() {
@@ -44,6 +50,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(orderService.updateOrder(orderDto, id));
     }
     @PostMapping(value = "/done/{id}")
+    @KafkaListener(topics = "orderTopic", groupId = "group-id")
     public ResponseEntity orderDone(@PathVariable int id){
         OrderDto orderDto = orderService.orderDone(id);
         List<OrderDetailDto> orderDetailDtos = orderService.getByOrder(orderDto);
@@ -52,10 +59,16 @@ public class OrderController {
             int productId = orderDetail.getProduct().getId();
             StockDto stockDto = stockFeignClient.getByProductId(productId);
             stockDto.setQuantity(stockDto.getQuantity() - orderDto.getQuantity());
+            stockDto.setProductId(productId);
             stockDtos.add(stockDto);
         }
-        stockFeignClient.saveAllStock(stockDtos);
+        kafkaTemplate.send("stock",stockDtos);
+//        stockFeignClient.saveAllStock(stockDtos);
         return ResponseEntity.ok("Thank for your purchase !");
+    }
+    @GetMapping(value = "/filterOrder")
+    public ResponseEntity filterOrder(@RequestParam String name,@RequestParam int quantity){
+        return ResponseEntity.ok(orderService.filterOrder(name,quantity));
     }
 
 }

@@ -102,4 +102,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderMapper.toEntity(orderDto);
         return orderDetailMapper.toDtoList(orderDetailRepo.getByOrder(order));
     }
+
+    @Override
+    public List<OrderDto> filterOrder(String name, int quantity) {
+        return orderMapper.toDtoList(orderRepo.filterOrderByName(name,quantity));
+    }
 }

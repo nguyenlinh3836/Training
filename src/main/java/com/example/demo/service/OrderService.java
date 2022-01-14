@@ -18,4 +18,5 @@ public interface OrderService {
     OrderDetailDto getOrderDetailById(int id);
     OrderDetailDto updateOrderDetail(OrderDetailDto orderDetailDto,int id);
     List<OrderDetailDto> getByOrder(OrderDto orderDto);
+    List<OrderDto> filterOrder(String name,int quantity);
 }
