@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.client.StockFeignClient;
 import com.example.demo.dto.*;
-import com.example.demo.model.Order;
-import com.example.demo.model.OrderDetail;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/v1/order")
@@ -50,7 +47,6 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(orderService.updateOrder(orderDto, id));
     }
     @PostMapping(value = "/done/{id}")
-    @KafkaListener(topics = "orderTopic", groupId = "group-id")
     public ResponseEntity orderDone(@PathVariable int id){
         OrderDto orderDto = orderService.orderDone(id);
         List<OrderDetailDto> orderDetailDtos = orderService.getByOrder(orderDto);
@@ -59,10 +55,10 @@ public class OrderController {
             int productId = orderDetail.getProduct().getId();
             StockDto stockDto = stockFeignClient.getByProductId(productId);
             stockDto.setQuantity(stockDto.getQuantity() - orderDto.getQuantity());
-            stockDto.setProductId(productId);
+            stockDto.setProductid(productId);
             stockDtos.add(stockDto);
         }
-        kafkaTemplate.send("stock",stockDtos);
+          kafkaTemplate.send("orderTopic",stockDtos);
 //        stockFeignClient.saveAllStock(stockDtos);
         return ResponseEntity.ok("Thank for your purchase !");
     }

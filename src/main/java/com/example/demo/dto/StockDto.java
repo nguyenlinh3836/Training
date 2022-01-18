@@ -6,7 +6,7 @@ public class StockDto {
     @Id
     private int id;
     private int quantity;
-    private int productId;
+    private int productid;
 
     public int getId() {
         return id;
@@ -24,11 +24,11 @@ public class StockDto {
         this.quantity = quantity;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getProductid() {
+        return productid;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductid(int productid) {
+        this.productid = productid;
     }
 }
